@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Individual de Valorização Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #082033;
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #082033;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .header h1 {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .header p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3em;
+            opacity: 0.9;
+            color: white;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .step-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .area-title {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 2.2em;
+            color: #d2bc8f;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .area-explanation {
+            background: rgba(255,255,255,0.08);
+            padding: 30px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+            border-left: 4px solid white;
+        }
+
+        .area-explanation h3 {
+            font-family: 'Readex Pro', sans-serif;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .area-explanation p {
+            font-family: 'Montserrat', sans-serif;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.7;
+            font-size: 1.15em;
+            font-weight: 400;
+        }
+
+        .question-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .question-text {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 40px;
+            line-height: 1.4;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+        }
+
+        .rating-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .rating-scale span {
+            font-family: 'Montserrat', sans-serif;
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2em;
+            font-weight: 500;
+            min-width: 25px;
+        }
+
+        .slider {
+            width: 350px;
+            height: 10px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 2px;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 2px;
+            background: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        .score-display {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: white;
+            background: rgba(255,255,255,0.1);
+            padding: 20px 35px;
+            border-radius: 6px;
+            border: 2px solid white;
+            min-width: 100px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            font-family: 'Readex Pro', sans-serif;
+            background: white;
+            color: #082033;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 6px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,255,255,0.25);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 0.5s ease;
+            border-radius: 2px;
+        }
+
+        .results {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .overall-score {
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 8px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #082033;
+            background: white;
+            border: 5px solid rgba(255,255,255,0.3);
+        }
+
+        .diagnosis {
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 1.6em;
+            font-weight: 600;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 40px 0;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid white;
+        }
+
+        .areas-summary {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .area-summary {
+            padding: 25px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            border-left: 4px solid white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .area-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .area-percentage {
+            font-family: 'Readex Pro', sans-serif;
+            font-weight: 700;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .start-btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .start-btn {
+            font-family: 'Readex Pro', sans-serif;
+            background: white;
+            color: #082033;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 6px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,255,255,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .slider {
+                width: 280px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .area-title {
+                font-size: 1.8em;
+            }
+            
+            .question-text {
+                font-size: 1.3em;
+            }
+            
+            .score-circle {
+                width: 180px;
+                height: 180px;
+                font-size: 2.8em;
+            }
+
+            .step-container {
+                padding: 25px;
+            }
+
+            .area-explanation {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider {
+                width: 240px;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .content {
+                padding: 20px 10px;
+            }
+
+            .step-container {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.2em;
+            }
+
+            .score-display {
+                font-size: 2em;
+                padding: 15px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦷 Diagnóstico Individual de Valorização Profissional</h1>
+            <p>Descubra seu nível atual de valorização profissional através de uma avaliação detalhada</p>
+        </div>
+
+        <div class="content">
+            <!-- Explicação da Área -->
+            <div id="explanation-step" class="step-container">
+                <div class="area-title" id="current-area-title"></div>
+                <div class="area-explanation" id="current-area-explanation"></div>
+                <div class="start-btn-container">
+                    <button class="start-btn" onclick="startQuestions()">Iniciar Perguntas</button>
+                </div>
+            </div>
+
+            <!-- Pergunta Individual -->
+            <div id="question-step" class="step-container hidden">
+                <div class="area-title" id="question-area-title"></div>
+                <div class="question-container">
+                    <div class="question-text" id="current-question"></div>
+                    <div class="rating-container">
+                        <div class="rating-scale">
+                            <span>0</span>
+                            <input type="range" 
+                                   class="slider" 
+                                   min="0" 
+                                   max="10" 
+                                   value="0" 
+                                   id="current-slider"
+                                   oninput="updateCurrentScore(this.value)">
+                            <span>10</span>
+                        </div>
+                        <div class="score-display" id="current-score">0</div>
+                    </div>
+                </div>
+                
+                <div class="progress">
+                    <div id="progress-text">Pergunta 1 de 35</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <div></div>
+                    <div class="progress" id="area-progress"></div>
+                    <button class="btn" id="next-btn" onclick="nextQuestion()">Próxima ➡</button>
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div id="results-step" class="step-container hidden">
+                <div class="area-title">📊 Seus Resultados</div>
+                <div class="results">
+                    <div class="overall-score">
+                        <div class="score-circle" id="final-score">0%</div>
+                        <div class="diagnosis" id="final-diagnosis"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const diagnosticoData = {
+            areas: [
+                {
+                    nome: "CONSULTA EXTRAORDINÁRIA",
+                    explicacao: {
+                        titulo: "O que é Consulta Extraordinária?",
+                        texto: "A Consulta Extraordinária é o momento onde você demonstra sua expertise e diferencial como profissional. É aqui que você conta histórias que conectam emocionalmente com o paciente, realiza exames detalhados como periogramas, e consegue fechar TPMC/PIC usando técnicas avançadas de comunicação e persuasão."
+                    },
+                    perguntas: [
+                        "A cada 10 pacientes, quantos deles ouvem de você uma das 7 histórias que salvam dentes?",
+                        "A cada 10 pacientes, quantos periogramas você realiza dentro da alavanca da ação do paciente?",
+                        "A cada 10 pacientes, quantos TPMC/PIC consegue fechar?",
+                        "O quanto você utilizou a técnica da bola de cristal nos últimos 10 pacientes?",
+                        "Nos últimos 10 pacientes, o quanto você utilizou o medo ou sonho como elemento de fechamento do TPMC/PIC?"
+                    ]
+                },
+                {
+                    nome: "RM3em1",
+                    explicacao: {
+                        titulo: "O que é RM3em1?",
+                        texto: "RM3em1 é uma metodologia revolucionária de raspagem e alisamento radicular que combina três técnicas em uma única sessão. Envolve o uso de tecnologia moderna, evidenciadores de placa para precisão máxima, e técnicas que garantem conforto mesmo para pacientes com hipersensibilidade, resultando em um acabamento que impressiona os pacientes."
+                    },
+                    perguntas: [
+                        "O quanto a cureta deixou de ser o principal instrumento para sua instrumentação?",
+                        "A cada 10 procedimentos, quantos você utiliza o evidenciador de placa como GPS da placa?",
+                        "O quanto é confortável a sua instrumentação para o paciente mesmo com hipersensibilidade?",
+                        "A cada 10 pacientes, quantos elogiam exageradamente o resultado do seu RM3em1?",
+                        "A cada 10 pacientes, quantos falam: nossa nunca vi meu dente tão brilhoso assim?"
+                    ]
+                },
+                {
+                    nome: "TRATAMENTO PERIODONTAL",
+                    explicacao: {
+                        titulo: "O que é Tratamento Periodontal Avançado?",
+                        texto: "Refere-se ao domínio completo das técnicas de tratamento periodontal, desde procedimentos básicos até os mais complexos. Inclui o uso seguro de ultrassom em bolsas profundas, tratamentos de lesões de furca, TPNC (Terapia Periodontal Não Cirúrgica) para diferentes graus de periodontite, e o conhecimento para prescrever antibioticoterapia adequada."
+                    },
+                    perguntas: [
+                        "O quanto você se sente segura para instrumentar bolsas profundas com ultrassom?",
+                        "O quanto você se sente segura para tratar uma lesão de furca com amputação radicular?",
+                        "O quanto você se sente segura para realizar TPNC de periodontite severa?",
+                        "O quanto você se sente segura para realizar TPNC de mucosite peri-implantar?",
+                        "O quanto você se sente segura na prescrição de antibioticoterapia dentro do TPNC?"
+                    ]
+                },
+                {
+                    nome: "PROBLEMAS SISTÊMICOS",
+                    explicacao: {
+                        titulo: "O que são Problemas Sistêmicos?",
+                        texto: "Trata da capacidade de atender pacientes com condições médicas complexas que afetam o tratamento periodontal. Inclui o manejo de pacientes diabéticos, tabagistas, com problemas cardiovasculares, depressão/ansiedade, e o conhecimento sobre suplementação nutricional para acelerar a cicatrização e resultados do tratamento."
+                    },
+                    perguntas: [
+                        "A cada 10 pacientes sistêmicos, a quantos deles você conta a história do incêndio ou outra equivalente?",
+                        "O quanto consegue tratar Periodontite em pacientes diabéticos descompensados com segurança?",
+                        "O quanto consegue tratar Periodontite impedindo o progresso da perda óssea em pacientes tabagistas com segurança?",
+                        "O quanto você se sente seguro para tratar Periodontite em pacientes com depressão e/ou ansiedade?",
+                        "A cada 10 pacientes sistêmicos, quantos deles você prescreve suplementação (vit D, C, B12, Omega3) para acelerar o tratamento?"
+                    ]
+                },
+                {
+                    nome: "PRECIFICAÇÃO",
+                    explicacao: {
+                        titulo: "O que é Precificação Estratégica?",
+                        texto: "Refere-se à capacidade de precificar seus serviços baseado no valor entregue ao paciente. O Método Dentista que Salva Dentes permite cobrar valores premium por salvar dentes que seriam extraídos, oferecendo tratamentos indolores e resultados superiores. Uma precificação adequada é fundamental para a valorização profissional."
+                    },
+                    perguntas: [
+                        "O quanto o seu tratamento para Periodontite Inicial se aproxima de R$ 4.000?",
+                        "O quanto o seu tratamento para Periodontite Moderada se aproxima de R$ 8.000-12.000?",
+                        "O quanto o seu tratamento para Periodontite Severa se aproxima de R$ 15.000-20.000?",
+                        "O quanto o seu tratamento para Gengivite se aproxima de R$ 2.000-3.000?",
+                        "O quanto consegue receber por hora clínica nos seus tratamentos periodontais?"
+                    ]
+                },
+                {
+                    nome: "CAPTAÇÃO",
+                    explicacao: {
+                        titulo: "O que é Captação de Pacientes?",
+                        texto: "Envolve todas as estratégias para atrair e manter pacientes baseado na reputação de 'Dentista que Salva Dentes'. Inclui ações de marketing focadas em resultados, rechamadas estratégicas, parcerias profissionais, sistema de indicações e construção de uma reputação sólida. É essencial para o crescimento sustentável da prática."
+                    },
+                    perguntas: [
+                        "A cada 10 pacientes, quantos deles te conheceram através da sua reputação de 'salvar dentes'?",
+                        "Nos últimos 6 meses, quantas vezes fez ações para reativar pacientes antigos?",
+                        "O quanto suas parcerias com colegas para encaminhamento se aproxima de 5 profissionais ativos?",
+                        "A cada mês, quantos novos pacientes chegam através de indicações de pacientes satisfeitos?",
+                        "A cada 10 pacientes, quantos deles te reconhecem como um dentista que realmente salva dentes?"
+                    ]
+                },
+                {
+                    nome: "RECORRÊNCIA",
+                    explicacao: {
+                        titulo: "O que é Recorrência de Pacientes?",
+                        texto: "Refere-se à capacidade de manter pacientes em tratamentos contínuos através de TPMC/PIC (Tratamento Periodontal de Manutenção Customizado/Prevenção Integrada Customizada). Inclui o engajamento de diferentes perfis de pacientes em programas de manutenção e a apresentação constante de novidades e melhorias para manter o interesse e adesão ao tratamento."
+                    },
+                    perguntas: [
+                        "A cada 10 pacientes idosos, adolescentes ou gestantes, quantos deles estão em um TPMC/PIC?",
+                        "A cada 10 pacientes com implantes ou protocolo, quantos deles estão em um TPMC/PIC?",
+                        "A cada 10 pacientes com doenças cardiovasculares (hipertensão, stent, infarto, AVC, dislipidemia), quantos deles estão em um TPMC/PIC?",
+                        "Nos 10 últimos atendimentos, quantos deles você apresentou novidades (produtos odontológicos ou orientações de estilo de vida) para os pacientes?",
+                        "A cada 10 pacientes, quantos estão em um TPMC/PIC?"
+                    ]
+                }
+            ]
+        };
+
+        let currentAreaIndex = 0;
+        let currentQuestionIndex = 0;
+        let answers = [];
+
+        function initializeDiagnostic() {
+            // Initialize answers array
+            answers = diagnosticoData.areas.map(area => 
+                new Array(area.perguntas.length).fill(0)
+            );
+            
+            showExplanation();
+        }
+
+        function showExplanation() {
+            const area = diagnosticoData.areas[currentAreaIndex];
+            
+            document.getElementById('current-area-title').textContent = area.nome;
+            document.getElementById('current-area-explanation').innerHTML = `
+                <h3>${area.explicacao.titulo}</h3>
+                <p>${area.explicacao.texto}</p>
+            `;
+            
+            document.getElementById('explanation-step').classList.remove('hidden');
+            document.getElementById('question-step').classList.add('hidden');
+            document.getElementById('results-step').classList.add('hidden');
+        }
+
+        function startQuestions() {
+            currentQuestionIndex = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const area = diagnosticoData.areas[currentAreaIndex];
+            const totalQuestions = diagnosticoData.areas.reduce((sum, area) => sum + area.perguntas.length, 0);
+            let absoluteQuestionIndex = 0;
+            
+            // Calculate absolute question index
+            for (let i = 0; i < currentAreaIndex; i++) {
+                absoluteQuestionIndex += diagnosticoData.areas[i].perguntas.length;
+            }
+            absoluteQuestionIndex += currentQuestionIndex + 1;
+            
+            document.getElementById('question-area-title').textContent = area.nome;
+            document.getElementById('current-question').innerHTML = `<strong>${area.perguntas[currentQuestionIndex]}</strong>`;
+            document.getElementById('current-slider').value = answers[currentAreaIndex][currentQuestionIndex];
+            document.getElementById('current-score').textContent = answers[currentAreaIndex][currentQuestionIndex];
+            document.getElementById('progress-text').textContent = `Pergunta ${absoluteQuestionIndex} de ${totalQuestions}`;
+            document.getElementById('progress-fill').style.width = `${(absoluteQuestionIndex / totalQuestions) * 100}%`;
+            document.getElementById('area-progress').textContent = `${currentQuestionIndex + 1}/${area.perguntas.length} - ${area.nome}`;
+            
+            // Update navigation buttons
+            const isLastQuestion = (currentAreaIndex === diagnosticoData.areas.length - 1) && 
+                                  (currentQuestionIndex === area.perguntas.length - 1);
+            document.getElementById('next-btn').textContent = isLastQuestion ? 'Finalizar 🏁' : 'Próxima ➡';
+            
+            document.getElementById('explanation-step').classList.add('hidden');
+            document.getElementById('question-step').classList.remove('hidden');
+            document.getElementById('results-step').classList.add('hidden');
+        }
+
+        function updateCurrentScore(value) {
+            document.getElementById('current-score').textContent = value;
+            answers[currentAreaIndex][currentQuestionIndex] = parseInt(value);
+        }
+
+        function nextQuestion() {
+            const currentArea = diagnosticoData.areas[currentAreaIndex];
+            
+            if (currentQuestionIndex < currentArea.perguntas.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else if (currentAreaIndex < diagnosticoData.areas.length - 1) {
+                currentAreaIndex++;
+                showExplanation();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const areaScores = [];
+            let totalPercentage = 0;
+            
+            diagnosticoData.areas.forEach((area, areaIndex) => {
+                const areaTotal = answers[areaIndex].reduce((sum, score) => sum + score, 0);
+                const areaPercentage = Math.round((areaTotal / (area.perguntas.length * 10)) * 100);
+                areaScores.push({
+                    nome: area.nome,
+                    percentage: areaPercentage
+                });
+                totalPercentage += areaPercentage;
+            });
+            
+            const overallPercentage = Math.round(totalPercentage / diagnosticoData.areas.length);
+            
+            // Show overall score
+            document.getElementById('final-score').textContent = `${overallPercentage}%`;
+            
+            // Show detailed diagnosis
+            let diagnosisData = getDiagnosisData(overallPercentage);
+            
+            document.getElementById('final-diagnosis').innerHTML = `
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #d2bc8f; margin-bottom: 25px; font-size: 1.6em; text-align: center;">📊 Resultado do Seu Diagnóstico</h3>
+                    <div class="areas-summary" style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 30px;">
+                        ${areaScores.map(area => {
+                            let areaStatus = '';
+                            let areaColor = '';
+                            if (area.percentage >= 80) {
+                                areaStatus = 'EXCELENTE';
+                                areaColor = '#27ae60';
+                            } else if (area.percentage >= 60) {
+                                areaStatus = 'BOM';
+                                areaColor = '#f39c12';
+                            } else if (area.percentage >= 40) {
+                                areaStatus = 'ATENÇÃO';
+                                areaColor = '#e67e22';
+                            } else if (area.percentage >= 20) {
+                                areaStatus = 'CRÍTICO';
+                                areaColor = '#e74c3c';
+                            } else {
+                                areaStatus = 'EMERGENCIAL';
+                                areaColor = '#8e44ad';
+                            }
+                            
+                            return `
+                                <div style="padding: 20px; background: rgba(255,255,255,0.08); border-radius: 6px; border-left: 4px solid ${areaColor}; display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: white; font-size: 1.1em; text-align: left;">${area.nome}</div>
+                                    <div style="text-align: right;">
+                                        <div style="font-family: 'Readex Pro', sans-serif; font-weight: 700; font-size: 1.4em; color: white;">${area.percentage}%</div>
+                                        <div style="font-size: 0.85em; color: ${areaColor}; font-weight: 600;">${areaStatus}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <h3 style="color: #d2bc8f; margin-bottom: 30px; font-size: 1.6em; text-align: center;">${diagnosisData.titulo}</h3>
+                ${diagnosisData.subtitulo ? `<h4 style="color: white; margin-bottom: 35px; font-size: 0.75em; text-align: center; font-weight: 300;">${diagnosisData.subtitulo}</h4>` : ''}
+                <p style="margin-bottom: 25px; font-size: 1.1em; line-height: 1.6; text-align: left;">${diagnosisData.diagnostico}</p>
+                
+                <div style="background: rgba(210, 188, 143, 0.1); padding: 25px; border-radius: 6px; border-left: 4px solid #d2bc8f; margin: 25px 0;">
+                    <h4 style="color: #d2bc8f; margin-bottom: 20px; font-size: 1.2em; text-align: center;">🦷 Áreas que Precisam Melhorar</h4>
+                    <ul style="line-height: 1.7; font-size: 1.0em; padding-left: 20px; list-style: none; text-align: left;">
+                        ${diagnosisData.melhorar.map(item => `<li style="margin-bottom: 8px;">🦷 ${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #d2bc8f 0%, #c1a76f 100%); padding: 30px; border-radius: 8px; margin-top: 35px; text-align: center; color: #082033;">
+                    <h4 style="color: #082033; margin-bottom: 25px; font-size: 1.4em; font-weight: 700; text-align: center;">Para Alcançar os Resultados Você Precisa de Três Pilares</h4>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 25px 0; text-align: left;">
+                        <div style="background: rgba(8, 32, 51, 0.1); padding: 25px; border-radius: 6px;">
+                            <h5 style="color: #082033; font-size: 1.2em; margin-bottom: 15px; font-weight: 600; text-align: center;">DIRECIONAMENTO</h5>
+                            <p style="color: #082033; font-size: 0.95em; line-height: 1.4; margin-bottom: 15px; text-align: center;">Saber exatamente o que fazer e como fazer</p>
+                            <div style="font-size: 0.9em; line-height: 1.5;">
+                                <div style="margin-bottom: 8px;">🦷 Protocolo claro para cada procedimento</div>
+                                <div style="margin-bottom: 8px;">🦷 Estratégia de precificação estruturada</div>
+                                <div style="margin-bottom: 8px;">🦷 Técnicas de comunicação eficazes</div>
+                                <div style="margin-bottom: 8px;">🦷 Sistema de captação organizado</div>
+                                <div style="margin-bottom: 8px;">🦷 TPMC/PIC padronizados</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(8, 32, 51, 0.1); padding: 25px; border-radius: 6px;">
+                            <h5 style="color: #082033; font-size: 1.2em; margin-bottom: 15px; font-weight: 600; text-align: center;">FEEDBACK</h5>
+                            <p style="color: #082033; font-size: 0.95em; line-height: 1.4; margin-bottom: 15px; text-align: center;">Acompanhamento constante dos seus processos</p>
+                            <div style="font-size: 0.9em; line-height: 1.5;">
+                                <div style="margin-bottom: 8px;">🦷 Correção de técnicas em tempo real</div>
+                                <div style="margin-bottom: 8px;">🦷 Ajuste de precificação quando necessário</div>
+                                <div style="margin-bottom: 8px;">🦷 Melhoria da comunicação com pacientes</div>
+                                <div style="margin-bottom: 8px;">🦷 Otimização dos TPMC/PIC</div>
+                                <div style="margin-bottom: 8px;">🦷 Evolução constante dos resultados</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(8, 32, 51, 0.1); padding: 25px; border-radius: 6px;">
+                            <h5 style="color: #082033; font-size: 1.2em; margin-bottom: 15px; font-weight: 600; text-align: center;">COMUNIDADE</h5>
+                            <p style="color: #082033; font-size: 0.95em; line-height: 1.4; margin-bottom: 15px; text-align: center;">Estar no ambiente certo com pessoas certas</p>
+                            <div style="font-size: 0.9em; line-height: 1.5;">
+                                <div style="margin-bottom: 8px;">🦷 Troca de experiências entre profissionais</div>
+                                <div style="margin-bottom: 8px;">🦷 Networking qualificado e parcerias</div>
+                                <div style="margin-bottom: 8px;">🦷 Motivação através de casos de sucesso</div>
+                                <div style="margin-bottom: 8px;">🦷 Suporte para implementação de TPMC/PIC</div>
+                                <div style="margin-bottom: 8px;">🦷 Ambiente de crescimento profissional</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('explanation-step').classList.add('hidden');
+            document.getElementById('question-step').classList.add('hidden');
+            document.getElementById('results-step').classList.remove('hidden');
+        }
+
+        function getDiagnosisData(percentage) {
+            if (percentage >= 80) {
+                return {
+                    titulo: "🟢 EXCELENTE! Você está no topo da valorização profissional!",
+                    diagnostico: "Parabéns! Você demonstra um nível excepcional de competência e valorização profissional. Suas habilidades técnicas, estratégias de precificação e relacionamento com pacientes estão em um patamar de excelência.",
+                    melhorar: [
+                        "Continue aprimorando técnicas mais avançadas e inovadoras",
+                        "Expanda conhecimentos em áreas complementares",
+                        "Desenvolva ainda mais sua presença no mercado",
+                        "Aperfeiçoe sistemas de gestão e processos internos"
+                    ],
+                    passos: [
+                        "Busque um acompanhamento que te dê direcionamento, feedback dos processos e que tenha uma comunidade para que você possa estar no ambiente certo",
+                        "Torne-se mentor de outros profissionais da área",
+                        "Invista em marketing de autoridade (palestras, cursos, conteúdo)",
+                        "Explore parcerias estratégicas e expansão da prática",
+                        "Considere especialização em nichos de alto valor",
+                        "Mantenha educação continuada em técnicas de ponta"
+                    ]
+                };
+            } else if (percentage >= 60) {
+                return {
+                    titulo: "🟡 BOM! Você está no caminho certo, mas ainda há espaço para crescimento.",
+                    diagnostico: "Você possui uma base sólida de conhecimentos e práticas profissionais, mas ainda há oportunidades significativas de melhoria em algumas áreas específicas.",
+                    melhorar: [
+                        "Técnicas de comunicação e persuasão com pacientes",
+                        "Estratégias de precificação para valores premium",
+                        "Sistemas de captação e retenção de pacientes",
+                        "Protocolos de excelência em procedimentos",
+                        "Confiança em procedimentos mais complexos"
+                    ],
+                    passos: [
+                        "Busque um acompanhamento que te dê direcionamento, feedback dos processos e que tenha uma comunidade para que você possa estar no ambiente certo",
+                        "Identifique e foque nas 2-3 áreas com menor pontuação",
+                        "Invista em cursos específicos para suas deficiências",
+                        "Pratique técnicas de fechamento de tratamentos",
+                        "Revise e ajuste sua tabela de preços",
+                        "Desenvolva um sistema de follow-up com pacientes",
+                        "Estabeleça metas mensais claras de melhoria"
+                    ]
+                };
+            } else if (percentage >= 40) {
+                return {
+                    titulo: "🟠 ATENÇÃO! Você está no caminho, mas tem áreas que precisam de ajustes urgentes.",
+                    diagnostico: "Você possui conhecimentos básicos, mas há inconsistências significativas em sua prática profissional que estão limitando sua valorização no mercado.",
+                    melhorar: [
+                        "Técnicas de instrumentação e procedimentos clínicos",
+                        "Habilidades de comunicação e relacionamento",
+                        "Estratégia de precificação (muito abaixo do potencial)",
+                        "Sistema de captação de novos pacientes",
+                        "Protocolos de atendimento e follow-up",
+                        "Confiança em procedimentos complexos"
+                    ],
+                    passos: [
+                        "Busque um acompanhamento que te dê direcionamento, feedback dos processos e que tenha uma comunidade para que você possa estar no ambiente certo",
+                        "Busque mentoria especializada imediatamente",
+                        "Participe de cursos intensivos nas áreas deficientes",
+                        "Implemente gradualmente as técnicas aprendidas",
+                        "Revise completamente sua estratégia de precificação",
+                        "Desenvolva scripts de comunicação com pacientes",
+                        "Crie um plano de ação com metas semanais",
+                        "Pratique consistentemente até criar novos hábitos"
+                    ]
+                };
+            } else if (percentage >= 20) {
+                return {
+                    titulo: "🔴 CRÍTICO! É necessário uma revisão completa da sua estratégia profissional.",
+                    diagnostico: "Sua prática apresenta deficiências significativas em múltiplas áreas fundamentais, comprometendo sua capacidade de valorização profissional e sustentabilidade.",
+                    melhorar: [
+                        "Fundamentos básicos de procedimentos periodontais",
+                        "Técnicas de comunicação e persuasão",
+                        "Sistema completo de precificação",
+                        "Estratégias de marketing e captação",
+                        "Protocolos de atendimento ao paciente",
+                        "Confiança e segurança técnica",
+                        "Gestão de pacientes sistêmicos"
+                    ],
+                    passos: [
+                        "Busque um acompanhamento que te dê direcionamento, feedback dos processos e que tenha uma comunidade para que você possa estar no ambiente certo",
+                        "URGENTE: Busque mentoria especializada",
+                        "Reestruture completamente sua prática profissional",
+                        "Invista em educação continuada intensiva",
+                        "Desenvolva protocolos claros para cada procedimento",
+                        "Implemente sistema adequado de precificação",
+                        "Considere supervisão de profissional experiente",
+                        "Foque em uma área por vez para não se sobrecarregar",
+                        "Estabeleça metas de curto prazo (30-60 dias)"
+                    ]
+                };
+            } else {
+                return {
+                    titulo: "⚫ EMERGENCIAL! Sua valorização profissional precisa de uma transformação imediata.",
+                    diagnostico: "Situação crítica que requer intervenção imediata. Há deficiências graves em praticamente todas as áreas, comprometendo a qualidade dos serviços e reputação profissional.",
+                    melhorar: [
+                        "TODOS os fundamentos técnicos básicos",
+                        "Habilidades básicas de comunicação",
+                        "Conceitos elementares de precificação",
+                        "Sistemas básicos de organização e gestão",
+                        "Protocolos mínimos de segurança",
+                        "Relacionamento básico com pacientes",
+                        "Confiança e competência técnica fundamental"
+                    ],
+                    passos: [
+                        "Busque um acompanhamento que te dê direcionamento, feedback dos processos e que tenha uma comunidade para que você possa estar no ambiente certo",
+                        "PARE todas as atividades e busque ajuda IMEDIATA",
+                        "Procure mentoria especializada urgentemente",
+                        "Inscreva-se em programa intensivo de recapacitação",
+                        "Considere trabalhar sob supervisão temporária",
+                        "Refaça cursos básicos de periodontia",
+                        "Desenvolva plano de estudos estruturado",
+                        "NÃO tente resolver sozinho - busque suporte profissional",
+                        "Estabeleça cronograma de reconstrução profissional",
+                        "Considere afastamento temporário para estudos intensivos"
+                    ]
+                };
+            }
+        }
+
+        function restartDiagnostic() {
+            currentAreaIndex = 0;
+            currentQuestionIndex = 0;
+            answers = diagnosticoData.areas.map(area => 
+                new Array(area.perguntas.length).fill(0)
+            );
+            showExplanation();
+        }
+
+        // Initialize when page loads
+        window.onload = function() {
+            initializeDiagnostic();
+        };
+    </script>
+</body>
+</html>

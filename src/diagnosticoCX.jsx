@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const DiagnosticoCX = () => {
   const [currentAreaIndex, setCurrentAreaIndex] = useState(0)
@@ -109,8 +109,8 @@ const DiagnosticoCX = () => {
     ]
   }
 
-  // Initialize answers on component mount
-  useState(() => {
+  // Initialize answers on component mount using useEffect
+  useEffect(() => {
     setAnswers(diagnosticoData.areas.map(area => new Array(area.perguntas.length).fill(1)))
   }, [])
 
@@ -259,11 +259,6 @@ const DiagnosticoCX = () => {
   }
 
   const restartDiagnostic = () => {
-    setCurrentAreaIndex(0)
-    setCurrentQuestionIndex(0)
-    setAnswers(diagnosticoData.areas.map(area => new Array(area.perguntas.length).fill(1)))
-    setCurrentStep('explanation')
-  }
     setCurrentAreaIndex(0)
     setCurrentQuestionIndex(0)
     setAnswers(diagnosticoData.areas.map(area => new Array(area.perguntas.length).fill(1)))
@@ -492,6 +487,83 @@ const DiagnosticoCX = () => {
                       marginBottom: '15px',
                       fontWeight: 600,
                       textAlign: 'center'
+                    }}>COMUNIDADE</h5>
+                    <p style={{
+                      color: '#082033',
+                      fontSize: '0.95em',
+                      lineHeight: '1.4',
+                      marginBottom: '15px',
+                      textAlign: 'center'
+                    }}>Estar no ambiente certo com pessoas certas</p>
+                    <div style={{fontSize: '0.9em', lineHeight: '1.5'}}>
+                      <div style={{marginBottom: '8px'}}>🦷 Troca de experiências entre profissionais</div>
+                      <div style={{marginBottom: '8px'}}>🦷 Networking qualificado e parcerias</div>
+                      <div style={{marginBottom: '8px'}}>🦷 Motivação através de casos de sucesso</div>
+                      <div style={{marginBottom: '8px'}}>🦷 Suporte para implementação de TPMC/PIC</div>
+                      <div style={{marginBottom: '8px'}}>🦷 Ambiente de crescimento profissional</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '30px'
+                }}>
+                  <button 
+                    onClick={restartDiagnostic}
+                    style={{
+                      fontFamily: 'Readex Pro, sans-serif',
+                      background: '#082033',
+                      color: '#d2bc8f',
+                      border: '2px solid #d2bc8f',
+                      padding: '15px 35px',
+                      borderRadius: '8px',
+                      fontSize: '1.1em',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1px',
+                      marginRight: '15px'
+                    }}
+                  >
+                    Refazer Diagnóstico
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="container">
+      <div className="header">
+        <h1>🦷 Diagnóstico Individual de Valorização Profissional</h1>
+        <p>Descubra seu nível atual de valorização profissional através de uma avaliação detalhada</p>
+      </div>
+
+      <div className="content">
+        {currentStep === 'explanation' && renderExplanation()}
+        {currentStep === 'question' && renderQuestion()}
+        {currentStep === 'results' && renderResults()}
+      </div>
+    </div>
+  )
+}
+
+export default DiagnosticoCX, 0.1)',
+                    padding: '25px',
+                    borderRadius: '6px'
+                  }}>
+                    <h5 style={{
+                      color: '#082033',
+                      fontSize: '1.2em',
+                      marginBottom: '15px',
+                      fontWeight: 600,
+                      textAlign: 'center'
                     }}>DIRECIONAMENTO</h5>
                     <p style={{
                       color: '#082033',
@@ -538,55 +610,4 @@ const DiagnosticoCX = () => {
                   </div>
                   
                   <div style={{
-                    background: 'rgba(8, 32, 51, 0.1)',
-                    padding: '25px',
-                    borderRadius: '6px'
-                  }}>
-                    <h5 style={{
-                      color: '#082033',
-                      fontSize: '1.2em',
-                      marginBottom: '15px',
-                      fontWeight: 600,
-                      textAlign: 'center'
-                    }}>COMUNIDADE</h5>
-                    <p style={{
-                      color: '#082033',
-                      fontSize: '0.95em',
-                      lineHeight: '1.4',
-                      marginBottom: '15px',
-                      textAlign: 'center'
-                    }}>Estar no ambiente certo com pessoas certas</p>
-                    <div style={{fontSize: '0.9em', lineHeight: '1.5'}}>
-                      <div style={{marginBottom: '8px'}}>🦷 Troca de experiências entre profissionais</div>
-                      <div style={{marginBottom: '8px'}}>🦷 Networking qualificado e parcerias</div>
-                      <div style={{marginBottom: '8px'}}>🦷 Motivação através de casos de sucesso</div>
-                      <div style={{marginBottom: '8px'}}>🦷 Suporte para implementação de TPMC/PIC</div>
-                      <div style={{marginBottom: '8px'}}>🦷 Ambiente de crescimento profissional</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="container">
-      <div className="header">
-        <h1>🦷 Diagnóstico Individual de Valorização Profissional</h1>
-        <p>Descubra seu nível atual de valorização profissional através de uma avaliação detalhada</p>
-      </div>
-
-      <div className="content">
-        {currentStep === 'explanation' && renderExplanation()}
-        {currentStep === 'question' && renderQuestion()}
-        {currentStep === 'results' && renderResults()}
-      </div>
-    </div>
-  )
-}
-
-export default DiagnosticoCX
+                    background: 'rgba(8, 32, 51
